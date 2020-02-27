@@ -1,0 +1,19 @@
+{
+	"manifest_version": 2,
+	"name": "FLCSSboration",
+	"description": "CSS collaboration tools for FL project",
+	"version": "1",
+	"author": "Yongki",
+	"browser_action": {
+		"default_title": "CSS Collaboration tool",
+		"default_popup": "popup.html"
+	},
+	"content_scripts": [{
+		"matches": ["<all_urls>"],
+		"js": ["jquery.1.8.2.js","content.js"]
+	}],
+	"permissions": [
+		"activeTab",
+		"tabs"
+	]
+}
