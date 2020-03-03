@@ -63,7 +63,10 @@ function renderButton(siteID,serverID){
 	document.getElementById('exportbtn').setAttribute( 'href', 'https://flcssgit.smplwp.com/?site=' + siteID + '&export' );
 	document.getElementById('optionsbtn').setAttribute( 'href', 'https://'+ siteID +'.'+ serverID +'.flsitebuilder.com/wp-admin/admin.php?page=et_divi_options' );
 	document.getElementById('librarybtn').setAttribute( 'href', 'https://'+ siteID +'.'+ serverID +'.flsitebuilder.com/wp-admin/edit.php?post_type=et_pb_layout' );
+	document.getElementById('checkNapBtn').setAttribute( 'href', 'https://'+ siteID +'.'+ serverID +'.flsitebuilder.com/wp-admin/options-general.php?page=options-general-php-nap-management' );
+	document.getElementById('ninjaFormBtn').setAttribute( 'href', 'https://'+ siteID +'.'+ serverID +'.flsitebuilder.com/wp-admin/options-general.php?page=ninja-forms' );
 	document.getElementById('flmigrationsbtn').setAttribute( 'href', 'https://'+ siteID +'.'+ serverID +'.flsitebuilder.com/wp-admin/edit.php?post_type=fl_migration' );
+	document.getElementById('themeBuilderBtn').setAttribute( 'href', 'https://'+ siteID +'.'+ serverID +'.flsitebuilder.com/wp-admin/admin.php?page=et_theme_builder' );
 }
 
 function generateCSSLink(siteID,serverID){
