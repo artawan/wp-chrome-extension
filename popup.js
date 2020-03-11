@@ -38,6 +38,28 @@ function getServerID( url ){
 	return slice2[1];
 }
 
+function getIsFindlaw( url ){
+	var siteUrl = url;
+	// https://123456.findlaw2.flsitebuilder.com
+	var slice1 = siteUrl.replace('https://', '');
+	var slice2 = slice1.split('.');
+	if (slice2[2]=='flsitebuilder'){
+		return 'flsitebuilder.com';
+	}else{
+		return 'com';
+	}
+}
+
+jQuery("#hideAdminBar").click(function() {
+	chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+		chrome.tabs.executeScript(
+			tabs[0].id,
+			{
+				code: "if ($('#wpadminbar').css('display') == 'none'){$('#wpadminbar').css('display','block');} else {$('#wpadminbar').css('display','none');}"
+			});
+	});
+});
+
 function renderSiteID(statusText) {
 	document.getElementById('siteid').textContent = statusText;
 }
@@ -58,15 +80,15 @@ jQuery("#generate-typo").click(function() {
 	});
 });
 
-function renderButton(siteID,serverID){
-	document.getElementById('checklandingbtn').setAttribute( 'href', 'https://'+ siteID +'.'+ serverID +'.flsitebuilder.com/wp-admin/edit.php?post_type=landing-page');
+function renderButton(siteID,serverID, isFindlaw){
+	document.getElementById('checklandingbtn').setAttribute( 'href', 'https://'+ siteID +'.'+ serverID +'.'+ isFindlaw + '/wp-admin/edit.php?post_type=landing-page');
 	document.getElementById('exportbtn').setAttribute( 'href', 'https://flcssgit.smplwp.com/?site=' + siteID + '&export' );
-	document.getElementById('optionsbtn').setAttribute( 'href', 'https://'+ siteID +'.'+ serverID +'.flsitebuilder.com/wp-admin/admin.php?page=et_divi_options' );
-	document.getElementById('librarybtn').setAttribute( 'href', 'https://'+ siteID +'.'+ serverID +'.flsitebuilder.com/wp-admin/edit.php?post_type=et_pb_layout' );
-	document.getElementById('checkNapBtn').setAttribute( 'href', 'https://'+ siteID +'.'+ serverID +'.flsitebuilder.com/wp-admin/options-general.php?page=options-general-php-nap-management' );
-	document.getElementById('ninjaFormBtn').setAttribute( 'href', 'https://'+ siteID +'.'+ serverID +'.flsitebuilder.com/wp-admin/options-general.php?page=ninja-forms' );
-	document.getElementById('flmigrationsbtn').setAttribute( 'href', 'https://'+ siteID +'.'+ serverID +'.flsitebuilder.com/wp-admin/edit.php?post_type=fl_migration' );
-	document.getElementById('themeBuilderBtn').setAttribute( 'href', 'https://'+ siteID +'.'+ serverID +'.flsitebuilder.com/wp-admin/admin.php?page=et_theme_builder' );
+	document.getElementById('optionsbtn').setAttribute( 'href', 'https://'+ siteID +'.'+ serverID +'.'+ isFindlaw + '/wp-admin/admin.php?page=et_divi_options' );
+	document.getElementById('librarybtn').setAttribute( 'href', 'https://'+ siteID +'.'+ serverID +'.'+ isFindlaw + '/wp-admin/edit.php?post_type=et_pb_layout' );
+	document.getElementById('checkNapBtn').setAttribute( 'href', 'https://'+ siteID +'.'+ serverID +'.'+ isFindlaw + '/wp-admin/options-general.php?page=options-general-php-nap-management' );
+	document.getElementById('ninjaFormBtn').setAttribute( 'href', 'https://'+ siteID +'.'+ serverID +'.'+ isFindlaw + '/wp-admin/options-general.php?page=ninja-forms' );
+	document.getElementById('flmigrationsbtn').setAttribute( 'href', 'https://'+ siteID +'.'+ serverID +'.'+ isFindlaw + '/wp-admin/edit.php?post_type=fl_migration' );
+	document.getElementById('themeBuilderBtn').setAttribute( 'href', 'https://'+ siteID +'.'+ serverID +'.'+ isFindlaw + '/wp-admin/admin.php?page=et_theme_builder' );
 }
 
 function generateCSSLink(siteID,serverID){
@@ -77,10 +99,34 @@ function generateCSSLink(siteID,serverID){
 }
 
 function convertToLower(){
-	var str = document.getElementById('convertLink').value.toLowerCase();
-	var r = str.replace(/.html|.shtml/gi,'/');
-	var h = r.replace(/href="|"/gi,'');
-	document.getElementById('convertLink').value=h;
+	var url = document.getElementById('convertLink').value.toLowerCase();
+	if (url != "") {
+		var hostname;
+		hostname = url.indexOf("//") > -1 ? url.split('/')[2] : url.split('/')[0];
+		
+		//find & remove host and port number
+		hostname = hostname.split(':')[0];
+
+		if (hostname != "") {
+			const replaced = url.substring(url.indexOf(hostname) + hostname.length);
+			url = replaced;
+		}
+
+		//check / at first and last character
+		if (url.charAt(0) != "/") {
+			url = "/" + url;
+		}
+
+		if (url.slice(-1) != "/") {
+			url = url + "/";
+		}
+
+		//remove .shtml or html
+		url = url.replace(".shtml", "");
+		url = url.replace(".html", "");
+
+		document.getElementById('convertLink').value=url;
+	}
 }
 
 jQuery('#convertLink').click(function () {
@@ -91,8 +137,9 @@ document.addEventListener('DOMContentLoaded', function() {
 	getCurrentTabUrl(function(url) {
 		var siteID 	= getSiteID(url);
 		var serverID = getServerID(url);
+		var isFindlaw = getIsFindlaw(url);
 		generateCSSLink(siteID,serverID);
 		renderSiteID(siteID); 
-		renderButton(siteID,serverID);
+		renderButton(siteID,serverID, isFindlaw);
 	});
 });
