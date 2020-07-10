@@ -10,18 +10,23 @@ if (
 ) {
   siteID = getSiteID(tabUrl);
   serverID = getServerID(tabUrl);
-  console.log("FindLaw site " + siteID + " Server: " + serverID);
-  jQuery("html").prepend(
+
+  jQuery("head").prepend(
     '<link href="https://flcssgit.smplwp.com/?site=' +
       siteID +
       "&fl=" +
       serverID +
       '" type="text/css" rel="stylesheet">'
   );
+  jQuery("head").append(
+    "<style>@media screen {html {margin-top: 0px !important;}* html body {margin-top: 0px !important;}}</style>"
+  );
+
+  console.log("FindLaw site " + siteID + " Server: " + serverID);
 }
 
 if (jQuery('a[href="https://www.findlaw.com/"]').text() == "FindLaw") {
-  jQuery("html").prepend(
+  jQuery("head").prepend(
     "<style>@media(max-width:980px){ .typographyPopup { margin-left: 0 !important; width: 100% !important; position:absolute !important; top: 0 !important; left: 0 !important; padding: 10px !important; } }</style>"
   );
 
