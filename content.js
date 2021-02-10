@@ -2,6 +2,11 @@ var tabUrl = document.location.href;
 var siteID = "";
 var serverID = "";
 
+if (jQuery("body").hasClass("wp-admin")) {
+  jQuery("head").append(
+    "<style>.wp-admin .et-tb-admin .et-tb-modal span.et-fb-form__label span[class^='et-fb-form'] {margin-left: 10px !important;}</style>"
+  );
+}
 // Only run if its findlaw site and not in admin
 if (
   tabUrl.indexOf("flsitebuilder.com") >= 0 &&
@@ -11,13 +16,6 @@ if (
   siteID = getSiteID(tabUrl);
   serverID = getServerID(tabUrl);
 
-  jQuery("head").prepend(
-    '<link href="https://flcssgit.smplwp.com/?site=' +
-      siteID +
-      "&fl=" +
-      serverID +
-      '" type="text/css" rel="stylesheet">'
-  );
   jQuery("head").append(
     "<style>@media screen {html {margin-top: 0px !important;}* html body {margin-top: 0px !important;}}</style>"
   );

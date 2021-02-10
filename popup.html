@@ -1,105 +1,123 @@
 <html>
-	<head>
-		<style>
-			body {
-				width: 360px;
-				margin: 0;
-				word-break: break-word;
-				background-color: #585b5f;
-			}
-			.header {
-				background: #ff9100;
-				color: #fff;
-				padding: 10px 20px;
-				font-weight: bold;
-			}
-			.content {
-				padding: 20px;
-				color: #fff;
-				font-size: 14px;
-			}
-			.indicator {
-				display: inline-block;
-				position: absolute;
-				width: 12px;
-				height: 12px;
-				color: red;
-			}
-			.data {
-				margin-bottom: 10px;
-			}
-			.csslink label,
-			.convertLink label {
-				display: block;
-				margin-bottom: 5px;
-			}
-			.csslink textarea:focus {
-				outline: none;
-			}
-			.csslink textarea,
-			.convertLink textarea {
-				width: 100%;
-				border: none;
-				padding: 10px;
-				height: 80px;
-				font-size: 12px;
-			}
-			
-			.btn-container{
-				display: flex;
-				flex-wrap: wrap;
-				justify-content: space-between;
-			}
+  <head>
+    <style>
+      body {
+        width: 360px;
+        margin: 0;
+        word-break: break-word;
+        background-color: #585b5f;
+      }
+      .header {
+        background: #ff9100;
+        color: #fff;
+        padding: 10px 20px;
+        font-weight: bold;
+      }
+      .content {
+        padding: 20px;
+        color: #fff;
+        font-size: 14px;
+      }
+      .indicator {
+        display: inline-block;
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        color: red;
+      }
+      .data {
+        margin-bottom: 10px;
+      }
+      .csslink label,
+      .convertLink label {
+        display: block;
+        margin-bottom: 5px;
+      }
+      .csslink textarea:focus {
+        outline: none;
+      }
+      .csslink textarea,
+      .convertLink textarea {
+        width: 100%;
+        border: none;
+        padding: 10px;
+        height: 80px;
+        font-size: 12px;
+      }
 
-			.btn {
-				background: #ff9100;
-				color: #fff;
-				border: none;
-				padding: 10px;
-				text-decoration: none;
-				font-weight: bold;
-				margin-top: 10px;
-				flex-grow: 1;
-				text-align: center;
-				min-width: 100px;
-			}
-			.btn:not(:last-child):nth-of-type(odd){
-				margin-right: 10px;
-			}
-		</style>
-	</head>
-	<body>
-		<div class="header">
-			FL CSS Collaboration
-			<span class="indicator"></span>
-		</div>
-		<div class="content">
-			<div class="data">
-				<label>Site ID: </label>
-				<strong id="siteid"></strong>
-			</div>
-			<div class="convertLink">
-				<label for="convertLink">Paste link here</label>
-				<textarea name="convertLink" id="convertLink" autofocus placeholder="Paste link here"></textarea>
-			</div>
-			<div class="csslink">
-				<label for="csslink">Add this to theme options</label>
-				<textarea name="csslink" id="csslink"><link href="https://flcssgit.smplwp.com/?site=SITE_ID&fl=SERVER_ID" type="text/css" rel="stylesheet"></textarea>
-			</div>
-			<div class="btn-container">
-			<a href="" target="_blank" id="themeBuilderBtn" class="btn">THEME BUILDER</a>
-			<a href="" target="_blank" id="flmigrationsbtn" class="btn">FL MIGRATIONS</a>
-			<a href="" target="_blank" id="librarybtn" class="btn">DIVI LIBRARY</a>
-			<a href="" target="_blank" id="checklandingbtn" class="btn">CHECK LANDING PAGES</a>
-			<a href="" target="_blank" id="checkNapBtn" class="btn">NAP</a>
-			<a href="" target="_blank" id="ninjaFormBtn" class="btn">NINJA FORM</a>
-			<a href="" target="_blank" id="optionsbtn" class="btn">THEME OPTIONS</a>
-			<a href="" target="_blank" id="exportbtn" class="btn">EXPORT CSS</a>
-			<a href="javascript:void(0)" id="hideAdminBar" class="btn">TOGGLE ADMIN BAR</a>
-			<a href="javascript:void(0)" id="generate-typo" class="btn">GENERATE TYPOGRAPHY</a>
-			</div>
-		</div>
-		<script type="text/javascript" src="jquery.1.8.2.js"></script>
-		<script src="popup.js"></script>
-	</body>
+      .btn-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+      }
+
+      .btn {
+        background: #ff9100;
+        color: #fff;
+        border: none;
+        padding: 10px;
+        text-decoration: none;
+        font-weight: bold;
+        margin-top: 10px;
+        flex-grow: 1;
+        text-align: center;
+        min-width: 100px;
+      }
+      .btn:not(:last-child):nth-of-type(odd) {
+        margin-right: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      FL CSS Collaboration
+      <span class="indicator"></span>
+    </div>
+    <div class="content">
+      <div class="data">
+        <label>Site ID: </label>
+        <strong id="siteid"></strong>
+      </div>
+      <div class="convertLink">
+        <label for="convertLink">Paste link here</label>
+        <textarea
+          name="convertLink"
+          id="convertLink"
+          autofocus
+          placeholder="Paste link here"
+        ></textarea>
+      </div>
+      <div class="csslink">
+        <label for="csslink">Add this to theme options</label>
+        <textarea name="csslink" id="csslink">
+          <link href="https://flcssgit.smplwp.com/?site=SITE_ID&fl=SERVER_ID" type="text/css" rel="stylesheet">
+          <script>(function($){$('head').append('<link href="https://flcssgit.smplwp.com/?site=SITE_ID&fl=SERVER_ID" type="text/css" rel="stylesheet">');})(jQuery);</script>
+        </textarea>
+      </div>
+      <div class="btn-container">
+        <a href="" target="_blank" id="themeBuilderBtn" class="btn"
+          >THEME BUILDER</a
+        >
+        <a href="" target="_blank" id="flmigrationsbtn" class="btn"
+          >FL MIGRATIONS</a
+        >
+        <a href="" target="_blank" id="librarybtn" class="btn">DIVI LIBRARY</a>
+        <a href="" target="_blank" id="checklandingbtn" class="btn"
+          >CHECK LANDING PAGES</a
+        >
+        <a href="" target="_blank" id="checkNapBtn" class="btn">NAP</a>
+        <a href="" target="_blank" id="ninjaFormBtn" class="btn">NINJA FORM</a>
+        <a href="" target="_blank" id="optionsbtn" class="btn">THEME OPTIONS</a>
+        <a href="" target="_blank" id="exportbtn" class="btn">EXPORT CSS</a>
+        <a href="javascript:void(0)" id="hideAdminBar" class="btn"
+          >TOGGLE ADMIN BAR</a
+        >
+        <a href="javascript:void(0)" id="generate-typo" class="btn"
+          >GENERATE TYPOGRAPHY</a
+        >
+      </div>
+    </div>
+    <script type="text/javascript" src="jquery.1.8.2.js"></script>
+    <script src="popup.js"></script>
+  </body>
 </html>
