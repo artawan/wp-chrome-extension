@@ -1,4 +1,4 @@
-# flcss-chrome-extension git version
+# wp-chrome-extension git version
 FLCSS Chrome Extension git version
 
 
